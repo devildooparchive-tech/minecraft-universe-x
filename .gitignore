@@ -1,0 +1,16 @@
+# Dependencies & build output
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Environment & secrets
+.env
+.env.local
+*.token
+
+# OS junk
+Thumbs.db
+.DS_Store
+
+# Reference code is tracked, but not its bulk artifacts
+reference/v1-src/**/*.js.map
