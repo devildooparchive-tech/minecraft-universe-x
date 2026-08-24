@@ -17,7 +17,7 @@
 | 0.7 | تجهيز صور الشخصيات (19 صورة ASCII-safe) | ✅ | `assets/characters/source/char_01..19.jpeg` |
 | 0.8 | تحليل الرؤية للشخصيات → JSON | ✅ | `data/characters/char_01..19.json` + `index.json` (95 قدرة) |
 | 0.9 | أول commit رسمي | ✅ | `chore: project v2 bootstrap` |
-| 0.10 | ربط GitHub remote + push | ⬜ | يحتاج توكن من المستخدم (github-auth Method 1) |
+| 0.10 | ربط GitHub remote + push | ✅ | github.com/devildooparchive-tech/minecraft-universe-x · tag v2.0.0-alpha.0 · 142 ملف |
 | 0.11 | إعداد بيئة v2 (package.json, tsconfig, vite, three) | 🔄 | المرحلة 1 تبدأ به |
 
 ## المرحلة 1 — النواة الأساسية (Days 2-4) — ⬜
@@ -90,4 +90,4 @@ Unit + Integration + Performance + Persistence (X,Y,Z,M,S,R,F) + UX — **معي
 
 | التاريخ | الحاجز | الأثر | الإجراء |
 |---|---|---|---|
-| 2026-08-24 | لا يوجد توكن GitHub | 0.10 (push) معلّق | المستخدم ينشئ توكن من https://github.com/settings/tokens |
+| — | لا يوجد | — | — |
