@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "blocks": [
+    { "id": 0, "name": "air", "solid": false, "transparent": true, "texture": null },
+    { "id": 1, "name": "grass", "solid": true, "transparent": false, "texture": "grass", "color": "#5d9c3f", "hardness": 0.6 },
+    { "id": 2, "name": "dirt", "solid": true, "transparent": false, "texture": "dirt", "color": "#8b5a2b", "hardness": 0.5 },
+    { "id": 3, "name": "stone", "solid": true, "transparent": false, "texture": "stone", "color": "#7f7f7f", "hardness": 1.5 },
+    { "id": 4, "name": "sand", "solid": true, "transparent": false, "texture": "sand", "color": "#dbcf8f", "hardness": 0.4 },
+    { "id": 5, "name": "water", "solid": false, "transparent": true, "texture": "water", "color": "#3a6fd8", "hardness": 0, "liquid": true },
+    { "id": 6, "name": "wood", "solid": true, "transparent": false, "texture": "wood", "color": "#6b4f2a", "hardness": 1.0 },
+    { "id": 7, "name": "leaves", "solid": true, "transparent": true, "texture": "leaves", "color": "#3f7d2c", "hardness": 0.2 },
+    { "id": 8, "name": "bedrock", "solid": true, "transparent": false, "texture": "bedrock", "color": "#333333", "hardness": -1 },
+    { "id": 9, "name": "snow", "solid": true, "transparent": false, "texture": "snow", "color": "#f0f4f8", "hardness": 0.3 },
+    { "id": 10, "name": "obsidian", "solid": true, "transparent": false, "texture": "obsidian", "color": "#1b1129", "hardness": 10 },
+    { "id": 11, "name": "glowstone", "solid": true, "transparent": false, "texture": "glowstone", "color": "#e8c96a", "hardness": 0.3, "lightEmission": 15 }
+  ]
+}
