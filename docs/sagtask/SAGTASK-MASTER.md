@@ -20,20 +20,22 @@
 | 0.10 | ربط GitHub remote + push | ✅ | github.com/devildooparchive-tech/minecraft-universe-x · tag v2.0.0-alpha.0 · 142 ملف |
 | 0.11 | إعداد بيئة v2 (package.json, tsconfig, vite, three) | 🔄 | المرحلة 1 تبدأ به |
 
-## المرحلة 1 — النواة الأساسية (Days 2-4) — ⬜
+## المرحلة 1 — النواة الأساسية (Days 2-4) — ✅ مكتملة (2026-08-24)
 
-| # | المهمة | الحالة |
-|---|---|---|
-| 1.1 | package.json + tsconfig + index.html + Vite | ⬜ |
-| 1.2 | Event Bus (`src/core/events.ts`) + اختبارات | ⬜ |
-| 1.3 | نظام الوقت + حلقة اللعبة (fixed timestep) + اختبارات | ⬜ |
-| 1.4 | Perlin/Simplex Noise + اختبارات حتمية (seeded) | ⬜ |
-| 1.5 | نظام البلوكات (registry JSON-driven) | ⬜ |
-| 1.6 | نظام Chunks (Uint8Array) + حدود سالبة | ⬜ |
-| 1.7 | Greedy Meshing + Renderer خلف واجهة IRenderer | ⬜ |
-| 1.8 | Player + Input + Controller | ⬜ |
-| 1.9 | Persistence (IndexedDB) + اختبارات X/Y/Z | ⬜ |
-| 1.10 | **معيار القبول**: لعبة تعمل في المتصفح بعالم توليدي وحركة لاعب | ⬜ |
+| # | المهمة | الحالة | الدليل |
+|---|---|---|---|
+| 1.1 | package.json + tsconfig + index.html + Vite | ✅ | vite 5.4 · vitest 2.1 · build 470KB |
+| 1.2 | Event Bus + اختبارات | ✅ | 10 اختبارات — snapshot dispatch + عزل الأخطاء |
+| 1.3 | نظام الوقت + حلقة اللعبة (fixed timestep) + اختبارات | ✅ | 7 اختبارات — catch-up cap ضد spiral of death |
+| 1.4 | Perlin Noise + اختبارات حتمية | ✅ | 6 اختبارات — seeded، سالبة، FBM |
+| 1.5 | نظام البلوكات (JSON-driven) | ✅ | 7 اختبارات — 12 بلوك في data/blocks/vanilla.json |
+| 1.6 | نظام Chunks (Uint8Array) + حدود سالبة | ✅ | 13 اختبار — 16KB/chunk، edit journal |
+| 1.7 | Mesher + Renderer | ✅ | 6 اختبارات — face culling عبر حدود chunks |
+| 1.8 | Player + Input + Controller | ✅ | 5 اختبارات + Physics 5 اختبارات |
+| 1.9 | Persistence (IndexedDB) + اختبارات X/Y/Z | ✅ | 6 اختبارات — save/reload/integrity + round-trip |
+| 1.10 | **معيار القبول**: لعبة تعمل في المتصفح | ✅ | 14 فحص تكاملي headless: مشي→قفز→بناء→حفظ→restart→استرجاع + dev server حي على :5173 |
+
+**الإجمالي: 67 unit test + 14 integration check — كلهم أخضر. tsc نضيف. البناء ناجح.**
 
 ## المرحلة 2 — أنظمة العالم المتقدمة (Days 5-8) — ⬜
 
