@@ -1,0 +1,104 @@
+{
+  "version": "1.0.0",
+  "biomes": [
+    {
+      "id": 0,
+      "name": "ocean",
+      "nameAr": "المحيط",
+      "surfaceBlock": 4,
+      "fillerBlock": 2,
+      "underwater": true,
+      "temperature": [0.0, 0.35],
+      "humidity": [0.4, 1.0],
+      "heightBias": -10,
+      "heightScale": 0.35,
+      "treeDensity": 0.0
+    },
+    {
+      "id": 1,
+      "name": "plains",
+      "nameAr": "السهول",
+      "surfaceBlock": 1,
+      "fillerBlock": 2,
+      "temperature": [0.35, 0.65],
+      "humidity": [0.3, 0.6],
+      "heightBias": 0,
+      "heightScale": 0.5,
+      "treeDensity": 0.003,
+      "structure": "village"
+    },
+    {
+      "id": 2,
+      "name": "forest",
+      "nameAr": "الغابة",
+      "surfaceBlock": 1,
+      "fillerBlock": 2,
+      "temperature": [0.35, 0.7],
+      "humidity": [0.6, 1.0],
+      "heightBias": 1,
+      "heightScale": 0.7,
+      "treeDensity": 0.05
+    },
+    {
+      "id": 3,
+      "name": "desert",
+      "nameAr": "الصحراء",
+      "surfaceBlock": 4,
+      "fillerBlock": 4,
+      "temperature": [0.75, 1.0],
+      "humidity": [0.0, 0.25],
+      "heightBias": 0,
+      "heightScale": 0.45,
+      "treeDensity": 0.0,
+      "structure": "ruin"
+    },
+    {
+      "id": 4,
+      "name": "mountains",
+      "nameAr": "الجبال",
+      "surfaceBlock": 3,
+      "fillerBlock": 3,
+      "temperature": [0.0, 0.5],
+      "humidity": [0.0, 0.5],
+      "heightBias": 14,
+      "heightScale": 1.8,
+      "treeDensity": 0.002
+    },
+    {
+      "id": 5,
+      "name": "snow",
+      "nameAr": "التندرا الثلجية",
+      "surfaceBlock": 9,
+      "fillerBlock": 2,
+      "temperature": [0.0, 0.22],
+      "humidity": [0.25, 1.0],
+      "heightBias": 2,
+      "heightScale": 0.6,
+      "treeDensity": 0.01
+    },
+    {
+      "id": 6,
+      "name": "swamp",
+      "nameAr": "المستنقع",
+      "surfaceBlock": 2,
+      "fillerBlock": 2,
+      "temperature": [0.6, 1.0],
+      "humidity": [0.75, 1.0],
+      "heightBias": -3,
+      "heightScale": 0.25,
+      "treeDensity": 0.02
+    },
+    {
+      "id": 7,
+      "name": "badlands",
+      "nameAr": "الأراضي القاحلة",
+      "surfaceBlock": 4,
+      "fillerBlock": 3,
+      "temperature": [0.7, 1.0],
+      "humidity": [0.2, 0.5],
+      "heightBias": 5,
+      "heightScale": 1.2,
+      "treeDensity": 0.0
+    }
+  ]
+}

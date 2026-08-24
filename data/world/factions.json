@@ -1,0 +1,103 @@
+{
+  "version": "1.0.0",
+  "factions": [
+    {
+      "id": 0,
+      "name": "neutral",
+      "nameAr": "المحايدون",
+      "disposition": "neutral",
+      "allies": [
+        "verdant",
+        "player"
+      ],
+      "enemies": [
+        "nightbrood",
+        "ashborn"
+      ],
+      "spawnBiomes": [
+        "plains",
+        "forest",
+        "snow"
+      ],
+      "lootMultiplier": 1.0,
+      "behavior": "passive-until-attacked"
+    },
+    {
+      "id": 1,
+      "name": "verdant",
+      "nameAr": "الخُضرة (الأصدقاء)",
+      "disposition": "friendly",
+      "allies": [
+        "neutral",
+        "player"
+      ],
+      "enemies": [
+        "nightbrood",
+        "ashborn"
+      ],
+      "spawnBiomes": [
+        "plains",
+        "forest",
+        "swamp"
+      ],
+      "lootMultiplier": 1.2,
+      "behavior": "trade-guard-villages"
+    },
+    {
+      "id": 2,
+      "name": "nightbrood",
+      "nameAr": "التوالد الليلي (الأعداء)",
+      "disposition": "hostile",
+      "allies": [
+        "ashborn"
+      ],
+      "enemies": [
+        "verdant",
+        "neutral",
+        "player"
+      ],
+      "spawnBiomes": [
+        "dark-forest",
+        "swamp",
+        "cave"
+      ],
+      "lootMultiplier": 1.5,
+      "behavior": "hunt-at-night"
+    },
+    {
+      "id": 3,
+      "name": "ashborn",
+      "nameAr": "المولدون من الرماد",
+      "disposition": "hostile",
+      "allies": [
+        "nightbrood"
+      ],
+      "enemies": [
+        "verdant",
+        "player"
+      ],
+      "spawnBiomes": [
+        "badlands",
+        "desert",
+        "nether"
+      ],
+      "lootMultiplier": 1.8,
+      "behavior": "territorial-raiders"
+    },
+    {
+      "id": 4,
+      "name": "mythic",
+      "nameAr": "الأسطوريون",
+      "disposition": "elusive",
+      "allies": [],
+      "enemies": [],
+      "spawnBiomes": [
+        "mountains",
+        "end",
+        "ancient-temple"
+      ],
+      "lootMultiplier": 3.0,
+      "behavior": "rare-boss-spawns"
+    }
+  ]
+}

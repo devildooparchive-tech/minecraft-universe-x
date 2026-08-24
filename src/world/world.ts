@@ -11,9 +11,14 @@
 
 import { Chunk, CHUNK_SIZE, CHUNK_HEIGHT } from './chunk';
 import { PerlinNoise } from './noise';
+import { PerlinNoise3D, hash2 } from './noise3d';
+import { BiomeRegistry, type BiomeFile } from './biomes';
+import biomesJson from '../../data/world/biomes.json';
 
 export interface WorldOptions {
   seed?: number;
+  /** Sea level (default baseHeight-4). */
+  seaLevel?: number;
   /** Base terrain height (default 24). */
   baseHeight?: number;
   /** Terrain amplitude in blocks (default 12). */
@@ -27,12 +32,38 @@ export class World {
   private readonly noise: PerlinNoise;
   private readonly baseHeight: number;
   private readonly amplitude: number;
+  /** Sea level for oceans/lakes (default 20). */
+  readonly seaLevel: number;
+  private readonly biomeRegistry: BiomeRegistry;
+  private readonly tempNoise: PerlinNoise;
+  private readonly humidNoise: PerlinNoise;
+  private readonly caveA: PerlinNoise3D;
+  private readonly caveB: PerlinNoise3D;
 
   constructor(options: WorldOptions = {}) {
     this.seed = options.seed ?? 1337;
     this.baseHeight = options.baseHeight ?? 24;
     this.amplitude = options.amplitude ?? 12;
+    this.seaLevel = options.seaLevel ?? Math.round(this.baseHeight - 4);
     this.noise = new PerlinNoise(this.seed);
+    this.biomeRegistry = new BiomeRegistry(biomesJson as unknown as BiomeFile);
+    // independent sub-seeds so climate/caves never correlate with terrain
+    this.tempNoise = new PerlinNoise(this.seed ^ 0x51ab);
+    this.humidNoise = new PerlinNoise(this.seed ^ 0x9e37);
+    this.caveA = new PerlinNoise3D(this.seed ^ 0xcafe);
+    this.caveB = new PerlinNoise3D(this.seed ^ 0xbeef);
+  }
+
+  get biomeCount(): number {
+    return this.biomeRegistry.count;
+  }
+
+  /** Public biome query for HUD/debug/ spawning logic. */
+  biomeAt(x: number, z: number): { id: number; name: string; nameAr: string } {
+    const t = this.climate(x, z, this.tempNoise);
+    const h = this.climate(x, z, this.humidNoise);
+    const b = this.biomeRegistry.select(t, h);
+    return { id: b.id, name: b.name, nameAr: b.nameAr };
   }
 
   static key(cx: number, cz: number): string {
@@ -153,24 +184,91 @@ export class World {
       for (let lx = 0; lx < CHUNK_SIZE; lx++) {
         const wx = ox + lx;
         const wz = oz + lz;
-        // Height from fractal noise, deterministic per (seed, wx, wz)
-        const h = this.terrainHeight(wx, wz);
-        for (let y = 0; y <= h; y++) {
-          let id: number;
-          if (y === 0) id = 8; // bedrock
-          else if (y === h) id = h < 20 ? 4 : 1; // sand low / grass high
-          else if (y >= h - 3) id = 2; // dirt
-          else id = 3; // stone
+
+        // --- climate fields → biome selection + blended height params ---
+        const temperature = this.climate(wx, wz, this.tempNoise);
+        const humidity = this.climate(wx, wz, this.humidNoise);
+        const biome = this.biomeRegistry.select(temperature, humidity);
+        const blended = this.biomeRegistry.blendHeight(temperature, humidity);
+
+        // height: base fractal shaped by the biome's bias/scale
+        const n = this.noise.fractal2D(wx * 0.01, wz * 0.01, 4, 0.5, 2.0); // [-1,1]
+        const detail = this.noise.noise2D(wx * 0.05, wz * 0.05) * 2;
+        const hRaw =
+          this.baseHeight +
+          blended.bias +
+          n * this.amplitude * blended.scale +
+          detail;
+        const h = Math.max(1, Math.min(CHUNK_HEIGHT - 2, Math.round(hRaw)));
+        const seaLevel = this.seaLevel;
+
+        // --- column fill ---
+        for (let y = 0; y <= Math.max(h, seaLevel); y++) {
+          let id = 0;
+          if (y === 0) {
+            id = 8; // bedrock
+          } else if (y <= h) {
+            if (y === h) id = biome.surfaceBlock;
+            else if (y >= h - 3) id = biome.fillerBlock;
+            else id = 3; // stone body
+            // carve caves (only below surface-2 so cave mouths still appear)
+            if (y < h - 1 && this.isCave(wx, y, wz)) id = 0;
+          } else if (y <= seaLevel) {
+            id = 5; // ocean/lake water
+          }
           chunk.set(lx, y, lz, id);
+        }
+
+        // --- trees (deterministic per-column hash) ---
+        if (
+          biome.treeDensity > 0 &&
+          h > seaLevel &&
+          !this.isCave(wx, h, wz)
+        ) {
+          const roll = hash2(this.seed ^ 0x7ee3, wx, wz) / 4294967296;
+          if (roll < biome.treeDensity) this.placeTree(chunk, lx, h + 1, lz, wx, wz);
         }
       }
     }
   }
 
-  private terrainHeight(wx: number, wz: number): number {
-    const n = this.noise.fractal2D(wx * 0.01, wz * 0.01, 4, 0.5, 2.0); // [-1,1]
-    const detail = this.noise.noise2D(wx * 0.05, wz * 0.05) * 2;
-    return Math.max(1, Math.min(CHUNK_HEIGHT - 2, Math.round(this.baseHeight + n * this.amplitude + detail)));
+  /** Low-frequency climate field in [0,1]. */
+  private climate(wx: number, wz: number, noise: PerlinNoise): number {
+    // remap [-1,1] → [0,1] with very low frequency
+    return (noise.noise2D(wx * 0.0018, wz * 0.0018) + 1) / 2;
+  }
+
+  /**
+   * Cave test — "swiss cheese" via two 3D noise fields: a point is air when
+   * both fields sit inside a band (tunnel-like intersections), scaled by
+   * depth so caves get bigger deeper down and never touch the sky.
+   */
+  private isCave(wx: number, wy: number, wz: number): boolean {
+    if (wy < 2 || wy > this.baseHeight + this.amplitude + 4) return false;
+    const a = this.caveA.noise3D(wx * 0.055, wy * 0.075, wz * 0.055);
+    const b = this.caveB.noise3D(wx * 0.055, wy * 0.075, wz * 0.055);
+    // band width grows slightly with depth
+    const depthFactor = 1 - wy / (CHUNK_HEIGHT * 1.2);
+    const threshold = 0.088 + depthFactor * 0.03;
+    return Math.abs(a) < threshold && Math.abs(b) < threshold;
+  }
+
+  /** Small oak-style tree: trunk 4-5, leaf blob. Fits within the chunk column. */
+  private placeTree(chunk: Chunk, lx: number, baseY: number, lz: number, wx: number, wz: number): void {
+    const trunkH = 4 + (hash2(this.seed ^ 0x11, wx, wz) % 2);
+    if (baseY + trunkH + 2 >= CHUNK_HEIGHT) return;
+    for (let i = 0; i < trunkH; i++) chunk.set(lx, baseY + i, lz, 6); // wood
+    // canopy 3x3x2 + cap
+    for (let dy = trunkH - 2; dy <= trunkH - 1; dy++) {
+      for (let dz = -1; dz <= 1; dz++) {
+        for (let dx = -1; dx <= 1; dx++) {
+          if (dx === 0 && dz === 0 && dy < trunkH) continue; // trunk
+          chunk.set(lx + dx, baseY + dy, lz + dz, 7); // leaves
+        }
+      }
+    }
+    chunk.set(lx, baseY + trunkH, lz, 7);
+    chunk.set(lx, baseY + trunkH + 1, lz, 7);
   }
 
   private applyEditsTo(chunk: Chunk): void {

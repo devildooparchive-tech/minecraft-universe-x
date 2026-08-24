@@ -10,8 +10,8 @@
 const G2_UNUSED = 0; // (simplex reserved for Phase 2)
 void G2_UNUSED;
 
-/** Deterministic 32-bit PRNG (mulberry32) — tiny, fast, seedable. */
-function mulberry32(seed: number): () => number {
+/** Deterministic 32-bit PRNG (mulberry32) — tiny, fast, seedable. Shared with noise3d. */
+export function mulberry32(seed: number): () => number {
   let a = seed >>> 0;
   return () => {
     a |= 0;

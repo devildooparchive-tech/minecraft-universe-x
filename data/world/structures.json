@@ -1,0 +1,96 @@
+{
+  "version": "1.0.0",
+  "structures": [
+    {
+      "id": "small_house",
+      "size": [
+        7,
+        5,
+        6
+      ],
+      "biomes": [
+        "plains",
+        "forest"
+      ],
+      "rarity": 0.02,
+      "blocks": [
+        {
+          "type": "walls",
+          "block": 6
+        },
+        {
+          "type": "floor",
+          "block": 2
+        },
+        {
+          "type": "roof",
+          "block": 3
+        },
+        {
+          "type": "door",
+          "at": [
+            3,
+            0,
+            0
+          ],
+          "height": 2
+        },
+        {
+          "type": "windows",
+          "block": 11,
+          "y": 2
+        }
+      ]
+    },
+    {
+      "id": "watchtower",
+      "size": [
+        5,
+        12,
+        5
+      ],
+      "biomes": [
+        "plains",
+        "mountains",
+        "badlands"
+      ],
+      "rarity": 0.012,
+      "blocks": [
+        {
+          "type": "pillar_ring",
+          "block": 3,
+          "radius": 2
+        },
+        {
+          "type": "top_platform",
+          "block": 3
+        },
+        {
+          "type": "beacon",
+          "block": 11
+        }
+      ]
+    },
+    {
+      "id": "ruin_pillar",
+      "size": [
+        3,
+        4,
+        3
+      ],
+      "biomes": [
+        "desert",
+        "badlands",
+        "swamp"
+      ],
+      "rarity": 0.02,
+      "blocks": [
+        {
+          "type": "broken_columns",
+          "block": 3,
+          "count": 4
+        }
+      ]
+    }
+  ]
+}
