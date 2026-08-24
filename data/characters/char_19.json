@@ -1,0 +1,23 @@
+{
+  "id": "char_19",
+  "source": "assets/characters/source/char_19.jpeg",
+  "name": { "en": "Ender Knight", "ar": "فارس الإندر" },
+  "role": "warrior",
+  "confidence": 0.96,
+  "stats": { "health": 85, "energy": 90, "speed": 80, "strength": 88, "defense": 86, "intelligence": 84, "luck": 75 },
+  "abilities": [
+    { "id": "ender_slash", "name": "الضربة الإندرية", "type": "melee", "power": 92, "effect": "purple energy wave projectile", "cooldown_s": 6 },
+    { "id": "crystal_guard", "name": "حرس الكريستالات", "type": "defense", "effect": "orbiting crystals block next 3 hits", "cooldown_s": 20 },
+    { "id": "void_blink", "name": "وميض العدم", "type": "mobility", "effect": "teleport 8 blocks + slash", "cooldown_s": 9 },
+    { "id": "pearl_detonation", "name": "انفجار اللؤلؤة", "type": "aoe_damage", "power": 78, "effect": "ender pearl implodes", "cooldown_s": 14 },
+    { "id": "ascendant_will", "name": "إرادة الصاعد", "type": "buff", "effect": "all stats+15% 12s, eyes glow", "cooldown_s": 35 }
+  ],
+  "appearance": {
+    "colors": ["deep-purple", "gold-trim", "silver-white cape lining", "glowing-magenta sword", "violet eyes"],
+    "size": "medium",
+    "accessories": ["ornate purple-gold plate armor", "floating ender crystal ring", "glowing ender greatsword", "white fur collar", "pointed ears"],
+    "suggested_animations": ["heroic stance idle", "sword drag walk", "crystal ring orbit cast", "blink-strike combo", "cape flourish taunt"],
+    "environment_hint": "end-dimension obsidian platform with chorus plants"
+  },
+  "spawn": { "biomes": ["end", "stronghold"], "rarity": "legendary-ally", "faction": "ender-vanguard" }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "char_06",
+  "source": "assets/characters/source/char_06.jpeg",
+  "name": { "en": "Supreme Bruin", "ar": "الدب الأنثاك" },
+  "role": "boss",
+  "confidence": 0.92,
+  "stats": { "health": 95, "energy": 65, "speed": 55, "strength": 92, "defense": 80, "intelligence": 45, "luck": 60 },
+  "abilities": [
+    { "id": "maul_rush", "name": "التمزيق الوحشي", "type": "melee_combo", "power": 85, "cooldown_s": 7 },
+    { "id": "crown_of_skulls", "name": "تيارة الجماجم", "type": "summon", "effect": "summon 2 skull minions", "cooldown_s": 25 },
+    { "id": "blood_frenzy", "name": "هياج الدم", "type": "buff", "effect": "strength+35%, lifesteal 20% for 8s", "cooldown_s": 20 },
+    { "id": "lava_stomp", "name": "دوس الحمم", "type": "aoe_damage", "power": 70, "cooldown_s": 12 },
+    { "id": "drip_taunt", "name": "الاستفزاز الأسطوري", "type": "debuff", "effect": "enemies attack first, +damage taken 15%", "cooldown_s": 18 }
+  ],
+  "appearance": {
+    "colors": ["brown-fur", "black-jacket", "white-text", "bone-white crown", "red-drip"],
+    "size": "large",
+    "accessories": ["skull crown with spikes", "dripping blood maw", "black puffer jacket with white lettering", "armored gauntlets"],
+    "suggested_animations": ["heavy swagger idle", "roar with blood drip", "bear hug crush", "ground pound", "jacket-adjust taunt"],
+    "environment_hint": "nether lava fields with soul fire"
+  },
+  "spawn": { "biomes": ["nether", "crimson-forest"], "rarity": "elite-boss" }
+}

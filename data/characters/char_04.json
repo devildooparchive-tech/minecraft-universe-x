@@ -1,0 +1,23 @@
+{
+  "id": "char_04",
+  "source": "assets/characters/source/char_04.jpeg",
+  "name": { "en": "Ender Sage", "ar": "حكيم الإندر" },
+  "role": "boss",
+  "confidence": 0.95,
+  "stats": { "health": 80, "energy": 100, "speed": 50, "strength": 40, "defense": 60, "intelligence": 99, "luck": 80 },
+  "abilities": [
+    { "id": "ender_cube_barrage", "name": "وابل المكعبات", "type": "ranged", "power": 80, "cooldown_s": 7 },
+    { "id": "void_teleport", "name": "انتقال العدم", "type": "mobility", "effect": "teleport + brief invulnerability", "cooldown_s": 14 },
+    { "id": "gravity_well", "name": "بئر الجاذبية", "type": "aoe_control", "effect": "pull enemies 4 blocks", "cooldown_s": 18 },
+    { "id": "mechanical_wing_storm", "name": "عاصفة الجناحين", "type": "aoe_damage", "power": 65, "cooldown_s": 12 },
+    { "id": "forbidden_knowledge", "name": "المعرفة المحرّمة", "type": "summon", "effect": "summon 3 ender wisps", "cooldown_s": 30 }
+  ],
+  "appearance": {
+    "colors": ["dark-teal", "green-gold", "purple-glow", "grey-mechanical"],
+    "size": "large",
+    "accessories": ["two glowing ender cubes", "mechanical dragonfly wings", "long white beard", "rune-inscribed robes", "ornate leg armor"],
+    "suggested_animations": ["floating idle", "cube-levitation channel", "wing-flap hover", "teleport dissolve", "staff-less spell cast"],
+    "environment_hint": "obsidian platform / void dimension"
+  },
+  "spawn": { "biomes": ["end", "void", "ancient-temple"], "rarity": "legendary-boss" }
+}

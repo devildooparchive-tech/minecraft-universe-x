@@ -1,0 +1,23 @@
+{
+  "id": "char_02",
+  "source": "assets/characters/source/char_02.jpeg",
+  "name": { "en": "Humble Monk", "ar": "الراهب المتواضع" },
+  "role": "support",
+  "confidence": 0.9,
+  "stats": { "health": 55, "energy": 85, "speed": 45, "strength": 25, "defense": 40, "intelligence": 88, "luck": 70 },
+  "abilities": [
+    { "id": "healing_prayer", "name": "صلاة الشفاء", "type": "heal", "power": 45, "cooldown_s": 6 },
+    { "id": "blessing", "name": "البركة", "type": "buff", "effect": "ally luck+25% for 30s", "cooldown_s": 40 },
+    { "id": "sanctuary_aura", "name": "هالة الملاذ", "type": "aoe_buff", "effect": "nearby allies defense+15%", "cooldown_s": 30 },
+    { "id": "turn_undead", "name": "إرهاص الأرواح", "type": "debuff", "effect": "undead flee 5s", "cooldown_s": 25 },
+    { "id": "mend_boots", "name": "ترقيع الحذاء", "type": "utility", "effect": "repair ally equipment", "cooldown_s": 60 }
+  ],
+  "appearance": {
+    "colors": ["brown", "tan", "dark-brown"],
+    "size": "medium",
+    "accessories": ["hooded robe", "prayer beads (implied)", "leather boots"],
+    "suggested_animations": ["hands-clasped idle", "bow greeting", "kneeling prayer", "slow walk"],
+    "environment_hint": "village street at dusk with lanterns"
+  },
+  "spawn": { "biomes": ["village", "plains"], "rarity": "common" }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "char_03",
+  "source": "assets/characters/source/char_03.jpeg",
+  "name": { "en": "Crimson Wyrm", "ar": "التنين القرمزي" },
+  "role": "boss",
+  "confidence": 0.98,
+  "stats": { "health": 100, "energy": 90, "speed": 65, "strength": 98, "defense": 90, "intelligence": 70, "luck": 55 },
+  "abilities": [
+    { "id": "dragon_breath", "name": "نَفَس اللهب", "type": "cone_damage", "power": 95, "cooldown_s": 12 },
+    { "id": "wing_gust", "name": "عصف الجناح", "type": "aoe_knockback", "power": 60, "cooldown_s": 10 },
+    { "id": "tail_sweep", "name": "مسح الذيل", "type": "aoe_damage", "power": 70, "cooldown_s": 8 },
+    { "id": "dive_bomb", "name": "الانقضاض", "type": "charge", "power": 85, "cooldown_s": 15 },
+    { "id": "molten_roar", "name": "الزئير المنصهر", "type": "debuff", "effect": "enemy defense-25% for 8s", "cooldown_s": 20 }
+  ],
+  "appearance": {
+    "colors": ["crimson-red", "white", "dark-grey", "green (eye glow)"],
+    "size": "huge",
+    "accessories": ["white horns", "dorsal spikes", "massive wings", "glowing green eyes"],
+    "suggested_animations": ["quadruped idle", "wing-spread roar", "fire-breath windup", "tail sweep", "takeoff flight"],
+    "environment_hint": "cave lair / obsidian arena"
+  },
+  "spawn": { "biomes": ["cave", "nether", "dragon-lair"], "rarity": "legendary-boss" }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "char_10",
+  "source": "assets/characters/source/char_10.jpeg",
+  "name": { "en": "Bat-Cat of the Depths", "ar": "قط الخفافيش" },
+  "role": "warrior",
+  "confidence": 0.88,
+  "stats": { "health": 72, "energy": 85, "speed": 92, "strength": 68, "defense": 58, "intelligence": 75, "luck": 78 },
+  "abilities": [
+    { "id": "echolocation_sense", "name": "حاسة الصدى", "type": "utility", "effect": "reveal enemies through walls 10s", "cooldown_s": 25 },
+    { "id": "cave_dive", "name": "الانقضاض الكهفي", "type": "charge", "power": 78, "cooldown_s": 7 },
+    { "id": "sonar_screech", "name": "صرخة السونار", "type": "aoe_debuff", "effect": "enemies stunned 2s", "cooldown_s": 16 },
+    { "id": "nine_lives", "name": "الأرواح التسعة", "type": "passive", "effect": "survive fatal hit once per battle" },
+    { "id": "bone_crusher", "name": "ساحق العظام", "type": "melee", "power": 72, "cooldown_s": 6 }
+  ],
+  "appearance": {
+    "colors": ["dark-grey", "black", "brown-tan face", "yellow emblem"],
+    "size": "medium",
+    "accessories": ["bat-eared cowl", "tattered bat cape", "utility belt", "bat-symbol chest", "bat-like tail"],
+    "suggested_animations": ["perched crouch idle", "cape flare", "pounce attack", "upside-down hang", "tail flick taunt"],
+    "environment_hint": "deep cave with skeletons and bats"
+  },
+  "spawn": { "biomes": ["deep-cave", "dripstone"], "rarity": "rare" }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "char_11",
+  "source": "assets/characters/source/char_11.jpeg",
+  "name": { "en": "Aquila Warlord", "ar": "قائد النسور" },
+  "role": "warrior",
+  "confidence": 0.87,
+  "stats": { "health": 75, "energy": 82, "speed": 78, "strength": 85, "defense": 60, "intelligence": 68, "luck": 62 },
+  "abilities": [
+    { "id": "talon_dive", "name": "انقضاض المخالب", "type": "charge", "power": 82, "cooldown_s": 8 },
+    { "id": "eagle_eye", "name": "عين النسر", "type": "utility", "effect": "crit chance+30% 8s", "cooldown_s": 18 },
+    { "id": "gale_wing_slash", "name": "ضربة الرياح", "type": "aoe_damage", "power": 65, "cooldown_s": 11 },
+    { "id": "sky_dominance", "name": "سيادة السماء", "type": "buff", "effect": "speed+35%, jump+100% 10s", "cooldown_s": 25 },
+    { "id": "warlord_presence", "name": "هيبة القائد", "type": "aura", "effect": "allies strength+15%" }
+  ],
+  "appearance": {
+    "colors": ["earthen-brown", "tan", "dark-grey trunks", "black talons"],
+    "size": "large",
+    "accessories": ["sharp eagle beak", "predator talon feet", "defined musculature"],
+    "suggested_animations": ["proud stance idle", "wings-shoulder flare", "talon kick combo", "skyward scan", "victory screech"],
+    "environment_hint": "notebook sketch world / sky temple"
+  },
+  "spawn": { "biomes": ["mountains", "sky-islands"], "rarity": "rare" }
+}

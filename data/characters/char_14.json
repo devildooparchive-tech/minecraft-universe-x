@@ -1,0 +1,23 @@
+{
+  "id": "char_14",
+  "source": "assets/characters/source/char_14.jpeg",
+  "name": { "en": "Hollow Creeper", "ar": "الكريبر المجوف" },
+  "role": "boss",
+  "confidence": 0.93,
+  "stats": { "health": 68, "energy": 95, "speed": 72, "strength": 78, "defense": 42, "intelligence": 65, "luck": 50 },
+  "abilities": [
+    { "id": "abyssal_detonation", "name": "الانفجار الهاوي", "type": "aoe_damage", "power": 98, "effect": "self-repositions after", "cooldown_s": 14 },
+    { "id": "silent_stalk", "name": "التسلل الصامت", "type": "mobility", "effect": "no footstep sounds 8s", "cooldown_s": 18 },
+    { "id": "corrupted_heart", "name": "القلب الفاسد", "type": "summon", "effect": "spawn 2 mini creepers", "cooldown_s": 28 },
+    { "id": "withering_gaze", "name": "التحديق الباذخ", "type": "debuff", "effect": "wither effect 5s", "cooldown_s": 16 },
+    { "id": "pixel_devour", "name": "ابتلاع البكسلات", "type": "utility", "effect": "absorb projectile, gain energy", "cooldown_s": 12 }
+  ],
+  "appearance": {
+    "colors": ["pale-flesh-grey", "moss-green patches", "cyan-glow face", "purple-cluster"],
+    "size": "large",
+    "accessories": ["glitching green face display", "exposed fangs", "withered scars", "held purple pixel cluster"],
+    "suggested_animations": ["twitching idle", "hiss windup with flash", "lurching sprint", "glitch stutter step", "detonation pulse"],
+    "environment_hint": "mossy temple corridor with torches"
+  },
+  "spawn": { "biomes": ["jungle-temple", "dripstone", "deep-dark"], "rarity": "elite" }
+}

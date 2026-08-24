@@ -1,0 +1,23 @@
+{
+  "id": "char_16",
+  "source": "assets/characters/source/char_16.jpeg",
+  "name": { "en": "Fallen Seraph", "ar": "السيراف الساقط" },
+  "role": "boss",
+  "confidence": 0.97,
+  "stats": { "health": 98, "energy": 95, "speed": 62, "strength": 97, "defense": 92, "intelligence": 82, "luck": 58 },
+  "abilities": [
+    { "id": "inferno_wings", "name": "جناحا الجحيم", "type": "aoe_damage", "power": 92, "effect": "burn 5s + knockback", "cooldown_s": 12 },
+    { "id": "war_cello_smash", "name": "ضربة التشيلو الحربي", "type": "melee_shockwave", "power": 96, "effect": "ground shockwave line", "cooldown_s": 10 },
+    { "id": "fallen_hymn", "name": "ترنيمة السقوط", "type": "aoe_debuff", "effect": "enemy attack-30%, fear 4s", "cooldown_s": 20 },
+    { "id": "obsidian_plating", "name": "درع السجّ", "type": "buff", "effect": "defense+45%, reflect 15% 8s", "cooldown_s": 25 },
+    { "id": "seraph_judgment", "name": "حكم السيراف", "type": "execute", "power": 99, "effect": "x2 vs enemies below 30% HP", "cooldown_s": 30 }
+  ],
+  "appearance": {
+    "colors": ["obsidian-black", "molten-orange cracks", "fire-yellow wings", "tan face"],
+    "size": "huge",
+    "accessories": ["giant war-cello instrument weapon", "burning sword", "glowing halo headpiece", "massive flaming feathered wings", "obsidian scale armor"],
+    "suggested_animations": ["imposing stance with wings folded", "wing unfurl roar", "cello smash ground shockwave", "sword slash combo", "hymn channel with rising embers"],
+    "environment_hint": "marble palace courtyard with lava pools"
+  },
+  "spawn": { "biomes": ["nether-citadel", "corrupted-palace"], "rarity": "legendary-boss" }
+}

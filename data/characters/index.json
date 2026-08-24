@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-08-24",
+  "method": "vision_analyze (native vision) on 19 source images",
+  "total_characters": 19,
+  "total_abilities": 95,
+  "role_distribution": { "boss": 11, "warrior": 5, "support": 2, "servant": 1 },
+  "characters": [
+    { "id": "char_01", "name_en": "Titan Brute", "name_ar": "العملاق الوحشي", "role": "boss", "file": "char_01.json", "rarity": "boss" },
+    { "id": "char_02", "name_en": "Humble Monk", "name_ar": "الراهب المتواضع", "role": "support", "file": "char_02.json", "rarity": "common" },
+    { "id": "char_03", "name_en": "Crimson Wyrm", "name_ar": "التنين القرمزي", "role": "boss", "file": "char_03.json", "rarity": "legendary-boss" },
+    { "id": "char_04", "name_en": "Ender Sage", "name_ar": "حكيم الإندر", "role": "boss", "file": "char_04.json", "rarity": "legendary-boss" },
+    { "id": "char_05", "name_en": "Ossiraptor Mk-II", "name_ar": "الرابتور العظمي", "role": "boss", "file": "char_05.json", "rarity": "elite" },
+    { "id": "char_06", "name_en": "Supreme Bruin", "name_ar": "الدب الأنثاك", "role": "boss", "file": "char_06.json", "rarity": "elite-boss" },
+    { "id": "char_07", "name_en": "Venom Behemoth", "name_ar": "البهيموث السام", "role": "boss", "file": "char_07.json", "rarity": "elite-boss" },
+    { "id": "char_08", "name_en": "Mighty Mouse Champion", "name_ar": "بطل الفأر العضلات", "role": "warrior", "file": "char_08.json", "rarity": "special-event" },
+    { "id": "char_09", "name_en": "The Dark Watch", "name_ar": "الحارس المظلم", "role": "warrior", "file": "char_09.json", "rarity": "rare" },
+    { "id": "char_10", "name_en": "Bat-Cat of the Depths", "name_ar": "قط الخفافيش", "role": "warrior", "file": "char_10.json", "rarity": "rare" },
+    { "id": "char_11", "name_en": "Aquila Warlord", "name_ar": "قائد النسور", "role": "warrior", "file": "char_11.json", "rarity": "rare" },
+    { "id": "char_12", "name_en": "Alley Detective", "name_ar": "محقق الأزقة", "role": "support", "file": "char_12.json", "rarity": "uncommon" },
+    { "id": "char_13", "name_en": "The Grinning Mechanic", "name_ar": "الميكانيكي المبتسم", "role": "servant", "file": "char_13.json", "rarity": "uncommon" },
+    { "id": "char_14", "name_en": "Hollow Creeper", "name_ar": "الكريبر المجوف", "role": "boss", "file": "char_14.json", "rarity": "elite" },
+    { "id": "char_15", "name_en": "Burning Scholar", "name_ar": "العالم المحترق", "role": "boss", "file": "char_15.json", "rarity": "elite-boss" },
+    { "id": "char_16", "name_en": "Fallen Seraph", "name_ar": "السيراف الساقط", "role": "boss", "file": "char_16.json", "rarity": "legendary-boss" },
+    { "id": "char_17", "name_en": "Lava Glutton Bear", "name_ar": "دب الحمم الشرِه", "role": "boss", "file": "char_17.json", "rarity": "elite-boss" },
+    { "id": "char_18", "name_en": "Eye-Swarmed Batfiend", "name_ar": "شيطان الخفافيش ذو العيون", "role": "boss", "file": "char_18.json", "rarity": "elite-boss" },
+    { "id": "char_19", "name_en": "Ender Knight", "name_ar": "فارس الإندر", "role": "warrior", "file": "char_19.json", "rarity": "legendary-ally" }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "id": "char_08",
+  "source": "assets/characters/source/char_08.jpeg",
+  "name": { "en": "Mighty Mouse Champion", "ar": "بطل الفأر العضلات" },
+  "role": "warrior",
+  "confidence": 0.85,
+  "stats": { "health": 78, "energy": 80, "speed": 70, "strength": 90, "defense": 62, "intelligence": 50, "luck": 88 },
+  "abilities": [
+    { "id": "double_bicep_flex", "name": "العضلة المزدوجة", "type": "buff", "effect": "strength+30%, taunt enemies", "cooldown_s": 15 },
+    { "id": "pencil_power_punch", "name": "لكمة قوة الرصاص", "type": "melee", "power": 80, "cooldown_s": 5 },
+    { "id": "championship_pose", "name": "وضعية البطل", "type": "buff", "effect": "crowd morale, allies luck+20%", "cooldown_s": 30 },
+    { "id": "victory_toss", "name": "رمي الخصم", "type": "grab_throw", "power": 70, "cooldown_s": 12 },
+    { "id": "comeback_spirit", "name": "روح العودة", "type": "self_heal", "power": 35, "effect": "activates below 30% HP", "cooldown_s": 45 }
+  ],
+  "appearance": {
+    "colors": ["grey-stone-muscles", "black-trunks", "gold-trophy"],
+    "size": "large",
+    "accessories": ["championship trophy", "stage spotlight", "round cartoon ears"],
+    "suggested_animations": ["double-biceps flex idle", "side chest pose", "victory arms up", "heavy power walk", "trophy lift"],
+    "environment_hint": "indoor arena stage with banners and audience"
+  },
+  "spawn": { "biomes": ["arena", "village-festival"], "rarity": "special-event" }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "char_09",
+  "source": "assets/characters/source/char_09.jpeg",
+  "name": { "en": "The Dark Watch", "ar": "الحارس المظلم" },
+  "role": "warrior",
+  "confidence": 0.9,
+  "stats": { "health": 65, "energy": 90, "speed": 88, "strength": 70, "defense": 55, "intelligence": 85, "luck": 65 },
+  "abilities": [
+    { "id": "shadow_step", "name": "خطوة الظل", "type": "mobility", "effect": "teleport behind target", "cooldown_s": 10 },
+    { "id": "backstab", "name": "الطعنة الخلفية", "type": "melee_crit", "power": 95, "effect": "x2 from behind", "cooldown_s": 8 },
+    { "id": "smoke_veil", "name": "ستار الدخان", "type": "escape", "effect": "invisibility 4s", "cooldown_s": 20 },
+    { "id": "watchers_mark", "name": "علامة الرقيب", "type": "debuff", "effect": "target takes +25% damage 10s", "cooldown_s": 15 },
+    { "id": "night_hunter", "name": "صياد الليل", "type": "passive", "effect": "speed+30% at night" }
+  ],
+  "appearance": {
+    "colors": ["charcoal-black", "dark-grey", "glowing-white eyes"],
+    "size": "medium",
+    "accessories": ["long trench coat", "combat belt with pouches", "hunting knife", "glowing white eyes"],
+    "suggested_animations": ["still watchful idle", "head-tilt scan", "knife twirl", "silent crouch walk", "shadow vanish"],
+    "environment_hint": "dark oak forest at night, enderman in background"
+  },
+  "spawn": { "biomes": ["dark-forest", "night-surface"], "rarity": "rare", "time": "night" }
+}

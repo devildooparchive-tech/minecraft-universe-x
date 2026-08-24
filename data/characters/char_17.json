@@ -1,0 +1,23 @@
+{
+  "id": "char_17",
+  "source": "assets/characters/source/char_17.jpeg",
+  "name": { "en": "Lava Glutton Bear", "ar": "دب الحمم الشرِه" },
+  "role": "boss",
+  "confidence": 0.93,
+  "stats": { "health": 96, "energy": 70, "speed": 50, "strength": 95, "defense": 85, "intelligence": 30, "luck": 55 },
+  "abilities": [
+    { "id": "magma_fist", "name": "قبضة الحمم", "type": "melee", "power": 90, "effect": "burn 3s", "cooldown_s": 6 },
+    { "id": "devour", "name": "الالتهام", "type": "grab", "power": 75, "effect": "heals 20% of damage dealt", "cooldown_s": 15 },
+    { "id": "molten_eruption", "name": "ثورة البركان", "type": "aoe_damage", "power": 88, "effect": "lava geysers around him", "cooldown_s": 18 },
+    { "id": "shovel_swat", "name": "ضربة المجرفة", "type": "melee_knockback", "power": 65, "cooldown_s": 8 },
+    { "id": "basalt_hide", "name": "جلد البازلت", "type": "passive", "effect": "immune to fire, melee attackers take 10 dmg" }
+  ],
+  "appearance": {
+    "colors": ["earthen-brown", "glowing-lava cracks", "red-glowing eyes"],
+    "size": "huge",
+    "accessories": ["wooden shovel", "swallowed pizza visible in belly", "lava-veined hide", "diamond-shaped red eyes"],
+    "suggested_animations": ["slow heavy stomp", "shovel overhead swing", "belly rumble idle", "eruption roar", "food sniff search"],
+    "environment_hint": "nether basalt deltas over lava sea, crimson trees"
+  },
+  "spawn": { "biomes": ["nether", "basalt-deltas"], "rarity": "elite-boss" }
+}

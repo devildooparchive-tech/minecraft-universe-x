@@ -1,0 +1,23 @@
+{
+  "id": "char_05",
+  "source": "assets/characters/source/char_05.jpeg",
+  "name": { "en": "Ossiraptor Mk-II", "ar": "الرابتور العظمي" },
+  "role": "boss",
+  "confidence": 0.9,
+  "stats": { "health": 70, "energy": 85, "speed": 95, "strength": 75, "defense": 55, "intelligence": 60, "luck": 45 },
+  "abilities": [
+    { "id": "pounce_strike", "name": "الوثلة القاتلة", "type": "charge", "power": 75, "cooldown_s": 6 },
+    { "id": "bone_shrapnel", "name": "شظايا العظام", "type": "ranged", "power": 55, "cooldown_s": 8 },
+    { "id": "servo_sprint", "name": "الاندفاع الميكانيكي", "type": "buff", "effect": "speed+50% for 6s", "cooldown_s": 15 },
+    { "id": "tail_lash", "name": "سوط الذيل", "type": "aoe_damage", "power": 60, "cooldown_s": 9 },
+    { "id": "reconstruct", "name": "إعادة التركيب", "type": "self_heal", "power": 30, "cooldown_s": 40 }
+  ],
+  "appearance": {
+    "colors": ["bone-white", "gold-yellow", "black", "emerald-green (crest)"],
+    "size": "large",
+    "accessories": ["mechanical armor plating", "patterned head crest", "exposed spine segments", "clawed feet"],
+    "suggested_animations": ["raptor crouch idle", "head twitch scan", "leaping pounce", "tail whip", "sprinting gallop"],
+    "environment_hint": "dark museum-like hall / lab with pillars"
+  },
+  "spawn": { "biomes": ["fossil-dig", "lab", "badlands"], "rarity": "elite" }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "char_15",
+  "source": "assets/characters/source/char_15.jpeg",
+  "name": { "en": "Burning Scholar", "ar": "العالم المحترق" },
+  "role": "boss",
+  "confidence": 0.9,
+  "stats": { "health": 82, "energy": 92, "speed": 68, "strength": 76, "defense": 52, "intelligence": 90, "luck": 45 },
+  "abilities": [
+    { "id": "phoenix_wings", "name": "جناحا العنقاء", "type": "aoe_damage", "power": 85, "effect": "burn 4s", "cooldown_s": 12 },
+    { "id": "third_eye_foresight", "name": "عين البصيرة", "type": "passive", "effect": "dodge first attack each round" },
+    { "id": "blood_frenzy_flap", "name": "رفرفة الدم", "type": "buff", "effect": "fire dmg+40% while below 50% HP", "cooldown_s": 0 },
+    { "id": "scholars_curse", "name": "لعبة العالم", "type": "debuff", "effect": "enemy intelligence-50% 10s", "cooldown_s": 22 },
+    { "id": "claw_of_knowledge", "name": "مخلب المعرفة", "type": "melee", "power": 72, "cooldown_s": 6 }
+  ],
+  "appearance": {
+    "colors": ["blood-red stains", "tan-fur body", "fiery-orange wings", "dark-hair"],
+    "size": "large",
+    "accessories": ["square glasses", "third eye on forehead", "massive flaming wings", "long white claws", "blood-soaked fur"],
+    "suggested_animations": ["hovering with wing beats", "glasses-adjust taunt", "wing fire burst", "claw slash combo", "third-eye glow channel"],
+    "environment_hint": "dark misty forest with fire glow"
+  },
+  "spawn": { "biomes": ["dark-forest", "burning-forest"], "rarity": "elite-boss" }
+}

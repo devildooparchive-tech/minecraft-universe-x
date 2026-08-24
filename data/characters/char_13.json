@@ -1,0 +1,23 @@
+{
+  "id": "char_13",
+  "source": "assets/characters/source/char_13.jpeg",
+  "name": { "en": "The Grinning Mechanic", "ar": "الميكانيكي المبتسم" },
+  "role": "servant",
+  "confidence": 0.85,
+  "stats": { "health": 58, "energy": 70, "speed": 62, "strength": 55, "defense": 50, "intelligence": 80, "luck": 15 },
+  "abilities": [
+    { "id": "uncanny_smile", "name": "الابتسامة المرعبة", "type": "debuff", "effect": "enemies flee 3s", "cooldown_s": 15 },
+    { "id": "tool_belt_whip", "name": "سوط الأدوات", "type": "melee", "power": 50, "cooldown_s": 4 },
+    { "id": "workshop_trap", "name": "فخ الورشة", "type": "trap", "effect": "snare + 40 dmg", "cooldown_s": 22 },
+    { "id": "scavenger", "name": "الجمع الخفي", "type": "utility", "effect": "find hidden loot nearby", "cooldown_s": 30 },
+    { "id": "lights_out", "name": "إطفاء النور", "type": "escape", "effect": "darkness + reposition", "cooldown_s": 25 }
+  ],
+  "appearance": {
+    "colors": ["brown-jacket", "blue-jeans", "tan-distorted-face"],
+    "size": "medium",
+    "accessories": ["brown work jacket", "distorted grinning face", "workshop tools background"],
+    "suggested_animations": ["too-still idle", "head tilt slowly", "sudden lunge", "casual walk with hands in pockets", "smile widen taunt"],
+    "environment_hint": "garage workshop with pegboard tools"
+  },
+  "spawn": { "biomes": ["village", "workshop", "night-surface"], "rarity": "uncommon", "time": "night" }
+}

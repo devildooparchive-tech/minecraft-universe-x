@@ -1,0 +1,23 @@
+{
+  "id": "char_01",
+  "source": "assets/characters/source/char_01.jpeg",
+  "name": { "en": "Titan Brute", "ar": "العملاق الوحشي" },
+  "role": "boss",
+  "confidence": 0.85,
+  "stats": { "health": 92, "energy": 60, "speed": 38, "strength": 96, "defense": 72, "intelligence": 24, "luck": 30 },
+  "abilities": [
+    { "id": "ground_slam", "name": "ضربة الأرض", "type": "aoe_damage", "power": 85, "cooldown_s": 8 },
+    { "id": "berserker_rage", "name": "غضب المتوحش", "type": "buff", "effect": "strength+40% for 10s", "cooldown_s": 25 },
+    { "id": "bear_hug", "name": "العناق القاتل", "type": "grab", "power": 70, "cooldown_s": 12 },
+    { "id": "boulder_toss", "name": "رمي الصخرة", "type": "ranged", "power": 60, "cooldown_s": 10 },
+    { "id": "intimidating_roar", "name": "زئير الرعب", "type": "debuff", "effect": "enemy attack-20%", "cooldown_s": 18 }
+  ],
+  "appearance": {
+    "colors": ["tan", "brown", "dark-brown"],
+    "size": "huge",
+    "accessories": ["fur loincloth", "bone necklace (implied)"],
+    "suggested_animations": ["idle flex", "heavy stomp walk", "double-fist overhead smash", "chest-beat taunt"],
+    "environment_hint": "cave/stone temple with paintings and torches"
+  },
+  "spawn": { "biomes": ["cave", "jungle-temple"], "rarity": "boss" }
+}

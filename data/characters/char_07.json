@@ -1,0 +1,23 @@
+{
+  "id": "char_07",
+  "source": "assets/characters/source/char_07.jpeg",
+  "name": { "en": "Venom Behemoth", "ar": "البهيموث السام" },
+  "role": "boss",
+  "confidence": 0.9,
+  "stats": { "health": 90, "energy": 75, "speed": 60, "strength": 94, "defense": 88, "intelligence": 35, "luck": 40 },
+  "abilities": [
+    { "id": "tusk_impale", "name": "الطعن بالأنياب", "type": "charge", "power": 88, "cooldown_s": 8 },
+    { "id": "venom_spit", "name": "البصقة السامة", "type": "ranged_dot", "power": 50, "effect": "poison 5s", "cooldown_s": 9 },
+    { "id": "armor_plating", "name": "الدرع الصلب", "type": "buff", "effect": "defense+40% for 10s", "cooldown_s": 22 },
+    { "id": "quake_stomp", "name": "دوس الزلزال", "type": "aoe_damage", "power": 72, "cooldown_s": 13 },
+    { "id": "berserk_charge", "name": "الهجمة المجنونة", "type": "charge", "power": 95, "effect": "uncontrollable 3s after", "cooldown_s": 30 }
+  ],
+  "appearance": {
+    "colors": ["matte-black", "neon-green", "bone-white tusks"],
+    "size": "huge",
+    "accessories": ["ammo belts on back", "armored plating", "massive curved tusks", "glowing green seams", "red eye lenses"],
+    "suggested_animations": ["low predator idle", "tusk rake swipe", "charging bull rush", "shake-off roar", "poison spit recoil"],
+    "environment_hint": "wasteland / badlands with ruins"
+  },
+  "spawn": { "biomes": ["badlands", "wasteland", "war-zone"], "rarity": "elite-boss" }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "char_12",
+  "source": "assets/characters/source/char_12.jpeg",
+  "name": { "en": "Alley Detective", "ar": "محقق الأزقة" },
+  "role": "support",
+  "confidence": 0.92,
+  "stats": { "health": 60, "energy": 75, "speed": 55, "strength": 45, "defense": 48, "intelligence": 95, "luck": 72 },
+  "abilities": [
+    { "id": "deduction", "name": "الاستنتاج", "type": "utility", "effect": "reveal enemy weakness (+25% dmg 8s)", "cooldown_s": 20 },
+    { "id": "evidence_bone", "name": "الدليل العظمي", "type": "melee", "power": 40, "cooldown_s": 5 },
+    { "id": "interrogation", "name": "الاستجواب", "type": "debuff", "effect": "target loses will, drops loot", "cooldown_s": 30 },
+    { "id": "back_alley_knowledge", "name": "معرفة الأزقة", "type": "mobility", "effect": "shortcut escape / flank", "cooldown_s": 25 },
+    { "id": "stakeout", "name": "الكمين المراقب", "type": "trap", "effect": "next ambush crits x2", "cooldown_s": 35 }
+  ],
+  "appearance": {
+    "colors": ["brown-coat", "olive-pants", "tan-skin", "dark-hair"],
+    "size": "medium",
+    "accessories": ["long brown coat", "bone evidence in hand", "leather boots"],
+    "suggested_animations": ["thinking hand-on-head idle", "coat-flip walk", "pointing accusation", "kneeling examine", "notebook scribble"],
+    "environment_hint": "graffiti alley crime scene with lantern light"
+  },
+  "spawn": { "biomes": ["village", "ruins"], "rarity": "uncommon" }
+}
