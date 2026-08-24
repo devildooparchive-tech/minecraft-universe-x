@@ -5,6 +5,7 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     include: ['tests/**/*.test.ts'],
+    exclude: ['tests/integration/**', '**/node_modules/**'],
     coverage: {
       reporter: ['text', 'json-summary'],
       include: ['src/**/*.ts'],
