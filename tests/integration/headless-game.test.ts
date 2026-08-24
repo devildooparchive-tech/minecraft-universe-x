@@ -22,7 +22,7 @@ function check(name: string, cond: boolean, extra = ''): void {
 
 // --- 1. Boot ---------------------------------------------------------------
 const registry = new BlockRegistry(vanilla as unknown as BlockFile);
-check('registry loaded', registry.count === 12, `${registry.count} blocks`);
+check('registry loaded', registry.count === 16, `${registry.count} blocks`);
 
 const world = new World({ seed: 20260824 });
 const physics = new PhysicsWorld({

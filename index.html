@@ -21,6 +21,28 @@
       font-family: monospace; font-size: 12px; text-shadow: 0 1px 3px #000;
       pointer-events: none; white-space: pre;
     }
+    #survival-hud {
+      position: absolute; bottom: 70px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 40px; font-size: 18px; pointer-events: none;
+      text-shadow: 0 1px 3px #000;
+    }
+    #air { position: absolute; top: -24px; left: 0; width: 100%; text-align: center; }
+    #hotbar {
+      position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 4px; pointer-events: none;
+    }
+    #hotbar .slot {
+      width: 44px; height: 44px; background: rgba(0,0,0,.45);
+      border: 2px solid rgba(255,255,255,.35); border-radius: 6px;
+      display: flex; align-items: center; justify-content: center; position: relative;
+    }
+    #hotbar .slot.active { border-color: #fff; background: rgba(0,0,0,.65); }
+    #hotbar .glyph { font-size: 22px; }
+    #hotbar .count {
+      position: absolute; bottom: 1px; right: 4px; color: #fff;
+      font-family: monospace; font-size: 12px; font-weight: bold;
+      text-shadow: 0 1px 2px #000;
+    }
     #crosshair {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
       color: #fff; font-size: 20px; text-shadow: 0 0 3px #000; pointer-events: none;
@@ -39,6 +61,8 @@
     <p>اضغط للعب — WASD للحركة · الماوس للنظر · Space للقفز · F5 يحفظ</p>
   </div>
   <div id="hud"></div>
+  <div id="survival-hud"><div id="hearts"></div><div id="hunger"></div><div id="air"></div></div>
+  <div id="hotbar"></div>
   <div id="crosshair">+</div>
   <div id="save-status">✓ تم الحفظ</div>
   <script type="module" src="/src/main.ts"></script>
