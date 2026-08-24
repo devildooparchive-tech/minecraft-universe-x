@@ -81,11 +81,7 @@ describe('Survival: drowning', () => {
     const b = body();
     for (let i = 0; i < 14 * 60; i++) s.tick(b, 1 / 60, false, 0);
     expect(s.airRemaining).toBeLessThan(2);
-    // surface: head above water now
-    const surfacing = { ...underwaterDeps, headUnderwater: () => false };
-    const s2 = Object.assign(Object.create(Object.getPrototypeOf(s)), s);
-    void s2;
-    // simpler: new survival near-full air, then breathe
+    // surface: breathe again (head above water)
     const fresh = new Survival({ isWater: () => true, headUnderwater: () => false });
     for (let i = 0; i < 60; i++) fresh.tick(b, 1 / 60, false, 0);
     expect(fresh.airRemaining).toBe(AIR_SECONDS);

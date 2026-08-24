@@ -12,6 +12,7 @@
 import { Chunk, CHUNK_SIZE, CHUNK_HEIGHT } from './chunk';
 import { PerlinNoise } from './noise';
 import { PerlinNoise3D, hash2 } from './noise3d';
+import { isBigRoom, pickOre } from './ores';
 import { BiomeRegistry, type BiomeFile } from './biomes';
 import biomesJson from '../../data/world/biomes.json';
 
@@ -39,6 +40,7 @@ export class World {
   private readonly humidNoise: PerlinNoise;
   private readonly caveA: PerlinNoise3D;
   private readonly caveB: PerlinNoise3D;
+  private readonly roomNoise: PerlinNoise3D;
 
   constructor(options: WorldOptions = {}) {
     this.seed = options.seed ?? 1337;
@@ -52,6 +54,7 @@ export class World {
     this.humidNoise = new PerlinNoise(this.seed ^ 0x9e37);
     this.caveA = new PerlinNoise3D(this.seed ^ 0xcafe);
     this.caveB = new PerlinNoise3D(this.seed ^ 0xbeef);
+    this.roomNoise = new PerlinNoise3D(this.seed ^ 0x4007);
   }
 
   get biomeCount(): number {
@@ -208,11 +211,23 @@ export class World {
           if (y === 0) {
             id = 8; // bedrock
           } else if (y <= h) {
-            if (y === h) id = biome.surfaceBlock;
-            else if (y >= h - 3) id = biome.fillerBlock;
-            else id = 3; // stone body
-            // carve caves (only below surface-2 so cave mouths still appear)
-            if (y < h - 1 && this.isCave(wx, y, wz)) id = 0;
+            const caveHere = this.isCave(wx, y, wz);
+            const roomHere = y > 2 && y < h - 1 && isBigRoom(this.roomNoise, wx, y, wz);
+            if (y === h) {
+              id = biome.surfaceBlock;
+            } else if (y >= h - 3) {
+              // near-surface filler; carve caves/rooms but no ores up here
+              id = caveHere || roomHere ? 0 : biome.fillerBlock;
+            } else {
+              // deep body: stone, carved by caves/rooms, ores on remaining stone
+              if (caveHere || roomHere) {
+                id = 0;
+              } else {
+                id = 3; // stone
+                const ore = pickOre(this.seed, wx, y, wz);
+                if (ore !== null) id = ore;
+              }
+            }
           } else if (y <= seaLevel) {
             id = 5; // ocean/lake water
           }
