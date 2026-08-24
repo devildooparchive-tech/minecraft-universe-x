@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "abilities": [
+    { "id": "ground_slam", "name": "Ground Slam", "nameAr": "ضربة الأرض", "type": "aoe_self", "energyCost": 25, "cooldownMs": 8000, "damage": 12, "radius": 4, "knockback": 8, "selfDamage": 2 },
+    { "id": "healing_prayer", "name": "Healing Prayer", "nameAr": "صلاة الشفاء", "type": "heal", "energyCost": 15, "cooldownMs": 6000, "healAmount": 8 },
+    { "id": "dragon_breath", "name": "Dragon Breath", "nameAr": "نفس اللهب", "type": "cone", "energyCost": 30, "cooldownMs": 12000, "damage": 14, "range": 9, "coneDeg": 45 },
+    { "id": "void_teleport", "name": "Void Teleport", "nameAr": "انتقال العدم", "type": "teleport", "energyCost": 12, "cooldownMs": 9000, "range": 8 },
+    { "id": "crystal_guard", "name": "Crystal Guard", "nameAr": "حرس الكريستالات", "type": "shield", "energyCost": 20, "cooldownMs": 20000, "absorb": 15, "durationMs": 6000 },
+    { "id": "ender_slash_wave", "name": "Ender Slash Wave", "nameAr": "الموجة الإندرية", "type": "projectile", "energyCost": 18, "cooldownMs": 5000, "damage": 10, "range": 12, "projectileSpeed": 20 },
+    { "id": "devour", "name": "Devour", "nameAr": "الالتهام", "type": "lifesteal", "energyCost": 22, "cooldownMs": 15000, "damage": 10, "range": 2.5, "healRatio": 0.5 },
+    { "id": "venom_spit", "name": "Venom Spit", "nameAr": "البصقة السامة", "type": "projectile", "energyCost": 10, "cooldownMs": 7000, "damage": 6, "range": 8 },
+    { "id": "molten_eruption", "name": "Molten Eruption", "nameAr": "ثورة البركان", "type": "aoe", "energyCost": 28, "cooldownMs": 14000, "damage": 11, "radius": 3.5 },
+    { "id": "berserker_rage", "name": "Berserker Rage", "nameAr": "غضب المتوحش", "type": "melee_buff", "energyCost": 20, "cooldownMs": 25000, "bonusDamage": 6, "durationMs": 8000 },
+    { "id": "abyssal_detonation", "name": "Abyssal Detonation", "nameAr": "الانفجار الهاوي", "type": "aoe_self", "energyCost": 35, "cooldownMs": 16000, "damage": 16, "radius": 3, "selfDamage": 5 },
+    { "id": "inferno_wings", "name": "Inferno Wings", "nameAr": "جناحا الجحيم", "type": "aoe", "energyCost": 30, "cooldownMs": 13000, "damage": 12, "radius": 4, "knockback": 6 }
+  ]
+}

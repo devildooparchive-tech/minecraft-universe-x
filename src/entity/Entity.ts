@@ -161,6 +161,8 @@ export class Entity {
   memory: EntityMemoryStore;
   currentGoal: GoalState = 'idle';
   targetId?: string;
+  /** extensible component bag (shields, buffs, mounts...) */
+  readonly components = new Map<string, unknown>();
 
   /** render interpolation helper — call before physics step */
   snapshotPrev(): void {
