@@ -1,0 +1,59 @@
+{
+  "version": "2.0.0",
+  "pieces": [
+    { "id": "wall_stone", "size": [1, 4, 4], "block": 3, "solid": true },
+    { "id": "wall_wood", "size": [1, 4, 4], "block": 6, "solid": true },
+    { "id": "roof_plank", "size": [5, 1, 5], "block": 6, "solid": true },
+    { "id": "floor_cobble", "size": [5, 1, 5], "block": 23, "solid": true },
+    { "id": "door_gap", "size": [1, 2, 1], "block": 0, "solid": false },
+    { "id": "window_glow", "size": [1, 1, 1], "block": 11, "solid": true }
+  ],
+  "blueprints": [
+    {
+      "id": "house_a",
+      "biomes": ["plains", "forest"],
+      "rarity": 0.02,
+      "footprint": [5, 6, 5],
+      "steps": [
+        { "piece": "floor_cobble", "at": [0, 0, 0] },
+        { "piece": "wall_stone", "at": [0, 1, 0], "rotate": 0 },
+        { "piece": "wall_stone", "at": [4, 1, 0], "rotate": 0 },
+        { "piece": "wall_wood", "at": [2, 1, 0], "rotate": 90 },
+        { "piece": "wall_wood", "at": [2, 1, 4], "rotate": 90 },
+        { "piece": "door_gap", "at": [2, 1, 0] },
+        { "piece": "window_glow", "at": [0, 3, 2] },
+        { "piece": "window_glow", "at": [4, 3, 2] },
+        { "piece": "roof_plank", "at": [0, 5, 0] }
+      ]
+    },
+    {
+      "id": "house_b",
+      "biomes": ["plains", "forest"],
+      "rarity": 0.02,
+      "footprint": [5, 7, 5],
+      "steps": [
+        { "piece": "floor_cobble", "at": [0, 0, 0] },
+        { "piece": "wall_wood", "at": [0, 1, 0], "rotate": 90 },
+        { "piece": "wall_wood", "at": [4, 1, 0], "rotate": 90 },
+        { "piece": "wall_wood", "at": [2, 1, 0], "rotate": 0 },
+        { "piece": "wall_wood", "at": [2, 1, 4], "rotate": 0 },
+        { "piece": "door_gap", "at": [0, 1, 2] },
+        { "piece": "window_glow", "at": [2, 4, 0] },
+        { "piece": "roof_plank", "at": [0, 6, 0] }
+      ]
+    },
+    {
+      "id": "tower_tall",
+      "biomes": ["plains", "mountains", "badlands"],
+      "rarity": 0.008,
+      "footprint": [3, 10, 3],
+      "steps": [
+        { "piece": "floor_cobble", "at": [-1, 0, -1] },
+        { "piece": "wall_stone", "at": [0, 1, 0], "rotate": 0 },
+        { "piece": "wall_stone", "at": [0, 5, 0], "rotate": 0 },
+        { "piece": "window_glow", "at": [1, 9, 1] },
+        { "piece": "roof_plank", "at": [-1, 10, -1] }
+      ]
+    }
+  ]
+}
