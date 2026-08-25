@@ -25,8 +25,13 @@ export class SceneRenderer {
   readonly ambientLight: THREE.AmbientLight;
   private readonly world: World;
   private readonly registry: BlockRegistry;
+  /** solid + water + decor meshes per chunk (3 entries per key) */
   private readonly chunkMeshes = new Map<string, THREE.Mesh>();
   private readonly material: THREE.MeshLambertMaterial;
+  private readonly waterMaterial: THREE.MeshLambertMaterial;
+  private readonly decorMaterial: THREE.MeshBasicMaterial;
+  /** clouds ceiling */
+  private cloudMesh?: THREE.Mesh;
 
   constructor(options: SceneRendererOptions) {
     this.world = options.world;
@@ -53,6 +58,32 @@ export class SceneRenderer {
     this.scene.add(this.ambientLight, this.sunLight);
 
     this.material = new THREE.MeshLambertMaterial({ vertexColors: true });
+    // translucent water — slightly blue-tinted, no depth write to avoid artifacts
+    this.waterMaterial = new THREE.MeshLambertMaterial({
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.68,
+      depthWrite: false,
+      side: THREE.DoubleSide,
+    });
+    // plants: unlit bright billboards, double-sided
+    this.decorMaterial = new THREE.MeshBasicMaterial({
+      vertexColors: true,
+      side: THREE.DoubleSide,
+    });
+
+    // --- flat cloud layer at y=90 (classic MC style) ---
+    const cloudGeo = new THREE.PlaneGeometry(1200, 1200);
+    cloudGeo.rotateX(-Math.PI / 2);
+    const cloudMat = new THREE.MeshBasicMaterial({
+      color: 0xffffff,
+      transparent: true,
+      opacity: 0.55,
+      depthWrite: false,
+    });
+    this.cloudMesh = new THREE.Mesh(cloudGeo, cloudMat);
+    this.cloudMesh.position.y = 90;
+    this.scene.add(this.cloudMesh);
   }
 
   /** (Re)build the mesh for one chunk. */
@@ -69,17 +100,51 @@ export class SceneRenderer {
     }
 
     const data = buildChunkMesh(chunk, { world: this.world, registry: this.registry });
-    if (data.indices.length === 0) return;
 
-    const geo = new THREE.BufferGeometry();
-    geo.setAttribute('position', new THREE.BufferAttribute(data.positions, 3));
-    geo.setAttribute('normal', new THREE.BufferAttribute(data.normals, 3));
-    geo.setAttribute('color', new THREE.BufferAttribute(data.colors, 3));
-    geo.setIndex(new THREE.BufferAttribute(data.indices, 1));
+    const makeMesh = (
+      pos: Float32Array,
+      nor: Float32Array,
+      col: Float32Array,
+      idx: Uint32Array,
+      mat: THREE.Material,
+      suffix: string,
+    ): void => {
+      const k = key + suffix;
+      const old = this.chunkMeshes.get(k);
+      if (old) {
+        this.scene.remove(old);
+        old.geometry.dispose();
+        this.chunkMeshes.delete(k);
+      }
+      if (idx.length === 0) return;
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+      geo.setAttribute('normal', new THREE.BufferAttribute(nor, 3));
+      geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+      geo.setIndex(new THREE.BufferAttribute(idx, 1));
+      const mesh = new THREE.Mesh(geo, mat);
+      mesh.renderOrder = suffix === ':w' ? 1 : 0;
+      this.scene.add(mesh);
+      this.chunkMeshes.set(k, mesh);
+    };
 
-    const mesh = new THREE.Mesh(geo, this.material);
-    this.scene.add(mesh);
-    this.chunkMeshes.set(key, mesh);
+    makeMesh(data.positions, data.normals, data.colors, data.indices, this.material, '');
+    makeMesh(
+      data.waterPositions,
+      data.waterNormals,
+      data.waterColors,
+      data.waterIndices,
+      this.waterMaterial,
+      ':w',
+    );
+    makeMesh(
+      data.decorPositions,
+      data.decorNormals,
+      data.decorColors,
+      data.decorIndices,
+      this.decorMaterial,
+      ':d',
+    );
   }
 
   removeChunk(cx: number, cz: number): void {
