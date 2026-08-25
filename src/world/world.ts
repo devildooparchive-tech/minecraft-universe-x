@@ -16,6 +16,22 @@ import { isBigRoom, pickOre } from './ores';
 import { BiomeRegistry, type BiomeFile } from './biomes';
 import biomesJson from '../../data/world/biomes.json';
 
+/** Per-biome surface decoration tables (Overhaul P2). */
+const DECORATIONS: Record<string, Array<{ block: number; chance: number }>> = {
+  forest: [
+    { block: 17, chance: 0.02 }, // fern
+    { block: 18, chance: 0.012 }, // red flower
+    { block: 19, chance: 0.006 }, // mushroom
+  ],
+  plains: [{ block: 20, chance: 0.05 }], // tall grass
+  desert: [{ block: 21, chance: 0.03 }], // dead bush
+  snow: [{ block: 22, chance: 0.06 }], // snow layer
+  swamp: [
+    { block: 19, chance: 0.02 }, // mushrooms love swamps
+    { block: 17, chance: 0.015 },
+  ],
+};
+
 export interface WorldOptions {
   seed?: number;
   /** Sea level (default baseHeight-4). */
@@ -41,6 +57,7 @@ export class World {
   private readonly caveA: PerlinNoise3D;
   private readonly caveB: PerlinNoise3D;
   private readonly roomNoise: PerlinNoise3D;
+  private readonly riverNoise: PerlinNoise;
 
   constructor(options: WorldOptions = {}) {
     this.seed = options.seed ?? 1337;
@@ -55,6 +72,7 @@ export class World {
     this.caveA = new PerlinNoise3D(this.seed ^ 0xcafe);
     this.caveB = new PerlinNoise3D(this.seed ^ 0xbeef);
     this.roomNoise = new PerlinNoise3D(this.seed ^ 0x4007);
+    this.riverNoise = new PerlinNoise(this.seed ^ 0x21be7);
   }
 
   get biomeCount(): number {
@@ -194,16 +212,29 @@ export class World {
         const biome = this.biomeRegistry.select(temperature, humidity);
         const blended = this.biomeRegistry.blendHeight(temperature, humidity);
 
-        // height: base fractal shaped by the biome's bias/scale
-        const n = this.noise.fractal2D(wx * 0.01, wz * 0.01, 4, 0.5, 2.0); // [-1,1]
-        const detail = this.noise.noise2D(wx * 0.05, wz * 0.05) * 2;
+        // --- Bold terrain: 3-octave mix (mountains/hills/detail) — Overhaul P1 ---
+        const mountain = this.noise.noise2D(wx * 0.003, wz * 0.003); // long waves
+        const hill = this.noise.fractal2D(wx * 0.008, wz * 0.008, 3, 0.5, 2.0); // medium
+        const detailN = this.noise.noise2D(wx * 0.04, wz * 0.04); // fine detail
         const hRaw =
           this.baseHeight +
           blended.bias +
-          n * this.amplitude * blended.scale +
-          detail;
-        const h = Math.max(1, Math.min(CHUNK_HEIGHT - 2, Math.round(hRaw)));
+          (mountain * 1.6 + hill * 0.7 + detailN * 0.35) *
+            this.amplitude *
+            blended.scale;
+        let h = Math.max(1, Math.min(CHUNK_HEIGHT - 3, Math.round(hRaw)));
         const seaLevel = this.seaLevel;
+
+        // --- Rivers: low noise bands carve water channels (Overhaul P1) ---
+        const riverVal = this.riverNoise.noise2D(wx * 0.02, wz * 0.02);
+        const isRiver =
+          riverVal < -0.34 && h > seaLevel - 2 && biome.name !== 'ocean';
+        if (isRiver && h > seaLevel - 1) {
+          h = seaLevel - 1; // carve the channel below sea level → fills with water
+        }
+
+        // --- Snow caps on high peaks (Overhaul P1) ---
+        const snowyTop = h > seaLevel + 12;
 
         // --- column fill ---
         for (let y = 0; y <= Math.max(h, seaLevel); y++) {
@@ -214,12 +245,11 @@ export class World {
             const caveHere = this.isCave(wx, y, wz);
             const roomHere = y > 2 && y < h - 1 && isBigRoom(this.roomNoise, wx, y, wz);
             if (y === h) {
-              id = biome.surfaceBlock;
+              id = snowyTop ? 9 : biome.surfaceBlock; // snow cap overrides
+              if (isRiver) id = 23; // gravel riverbeds
             } else if (y >= h - 3) {
-              // near-surface filler; carve caves/rooms but no ores up here
-              id = caveHere || roomHere ? 0 : biome.fillerBlock;
+              id = caveHere || roomHere ? 0 : isRiver ? 23 : biome.fillerBlock;
             } else {
-              // deep body: stone, carved by caves/rooms, ores on remaining stone
               if (caveHere || roomHere) {
                 id = 0;
               } else {
@@ -229,20 +259,57 @@ export class World {
               }
             }
           } else if (y <= seaLevel) {
-            id = 5; // ocean/lake water
+            id = 5; // ocean/lake/river water
           }
           chunk.set(lx, y, lz, id);
         }
+
+        // --- decorations (Overhaul P2) — deterministic per-column ---
+        this.placeDecoration(chunk, lx, h, lz, biome.name, wx, wz, isRiver);
 
         // --- trees (deterministic per-column hash) ---
         if (
           biome.treeDensity > 0 &&
           h > seaLevel &&
+          !snowyTop &&
+          !isRiver &&
           !this.isCave(wx, h, wz)
         ) {
           const roll = hash2(this.seed ^ 0x7ee3, wx, wz) / 4294967296;
           if (roll < biome.treeDensity) this.placeTree(chunk, lx, h + 1, lz, wx, wz);
         }
+      }
+    }
+  }
+
+  /**
+   * Surface decorations per biome — ferns/flowers/mushrooms in forests,
+   * tall grass in plains, dead bushes in deserts, snow layers in tundra.
+   */
+  private placeDecoration(
+    chunk: Chunk,
+    lx: number,
+    h: number,
+    lz: number,
+    biomeName: string,
+    wx: number,
+    wz: number,
+    isRiver: boolean,
+  ): void {
+    if (isRiver || h <= this.seaLevel) return; // no decor in rivers/water
+    const table: Array<{ block: number; chance: number }> | undefined =
+      DECORATIONS[biomeName];
+    if (!table || table.length === 0) return;
+    const roll = hash2(this.seed ^ 0xdec0, wx, wz) / 4294967296;
+    let acc = 0;
+    for (const entry of table) {
+      acc += entry.chance;
+      if (roll < acc) {
+        const y = h + 1;
+        if (y < CHUNK_HEIGHT && chunk.get(lx, y, lz) === 0) {
+          chunk.set(lx, y, lz, entry.block);
+        }
+        return;
       }
     }
   }

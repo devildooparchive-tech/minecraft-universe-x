@@ -7,7 +7,7 @@ describe('BlockRegistry (JSON-driven)', () => {
   const reg = new BlockRegistry(vanilla as never);
 
   it('loads all blocks from the JSON file', () => {
-    expect(reg.count).toBe(16); // 12 base + 4 ores added in Phase 2.5
+    expect(reg.count).toBe(24); // 16 + 8 new (crystal, 6 decor, gravel)
   });
 
   it('resolves by id and by name consistently', () => {

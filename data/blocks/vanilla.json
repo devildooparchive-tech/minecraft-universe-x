@@ -16,6 +16,14 @@
     { "id": 12, "name": "coal_ore", "solid": true, "transparent": false, "texture": "coal_ore", "color": "#3a3a3a", "hardness": 2.0 },
     { "id": 13, "name": "iron_ore", "solid": true, "transparent": false, "texture": "iron_ore", "color": "#c9a184", "hardness": 2.5 },
     { "id": 14, "name": "gold_ore", "solid": true, "transparent": false, "texture": "gold_ore", "color": "#d4af37", "hardness": 2.5 },
-    { "id": 15, "name": "diamond_ore", "solid": true, "transparent": false, "texture": "diamond_ore", "color": "#5decf5", "hardness": 3.0 }
+    { "id": 15, "name": "diamond_ore", "solid": true, "transparent": false, "texture": "diamond_ore", "color": "#5decf5", "hardness": 3.0 },
+    { "id": 16, "name": "crystal", "solid": true, "transparent": false, "texture": "crystal", "color": "#b89aff", "hardness": 1.2, "lightEmission": 7 },
+    { "id": 17, "name": "fern", "solid": false, "transparent": true, "texture": "fern", "color": "#4a8f3c", "hardness": 0.05 },
+    { "id": 18, "name": "flower_red", "solid": false, "transparent": true, "texture": "flower_red", "color": "#e04848", "hardness": 0.05 },
+    { "id": 19, "name": "mushroom", "solid": false, "transparent": true, "texture": "mushroom", "color": "#c46a4a", "hardness": 0.05 },
+    { "id": 20, "name": "tall_grass", "solid": false, "transparent": true, "texture": "tall_grass", "color": "#6ab04a", "hardness": 0.05 },
+    { "id": 21, "name": "dead_bush", "solid": false, "transparent": true, "texture": "dead_bush", "color": "#9a7b4f", "hardness": 0.05 },
+    { "id": 22, "name": "snow_layer", "solid": false, "transparent": true, "texture": "snow_layer", "color": "#eef4fa", "hardness": 0.1 },
+    { "id": 23, "name": "gravel", "solid": true, "transparent": false, "texture": "gravel", "color": "#8d8d85", "hardness": 0.7 }
   ]
 }
