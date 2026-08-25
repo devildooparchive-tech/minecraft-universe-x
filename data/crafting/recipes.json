@@ -1,0 +1,58 @@
+{
+  "version": "1.0.0",
+  "recipes": [
+    {
+      "id": "planks",
+      "nameAr": "ألواح خشب",
+      "inputs": [{ "block": 6, "count": 1 }],
+      "result": { "item": "planks", "count": 4 },
+      "station": "hand"
+    },
+    {
+      "id": "stick",
+      "nameAr": "عود",
+      "inputs": [{ "block": 6, "count": 1 }],
+      "result": { "item": "stick", "count": 4 },
+      "station": "hand"
+    },
+    {
+      "id": "crafting_table",
+      "nameAr": "طاولة صياغة",
+      "inputs": [{ "block": 6, "count": 4 }],
+      "result": { "item": "crafting_table", "count": 1 },
+      "station": "hand"
+    },
+    {
+      "id": "wooden_pickaxe",
+      "nameAr": "فأس خشبي",
+      "inputs": [{ "block": 6, "count": 3 }],
+      "result": { "item": "wooden_pickaxe", "count": 1, "attackBonus": 2 },
+      "station": "hand"
+    },
+    {
+      "id": "stone_pickaxe",
+      "nameAr": "فأس حجري",
+      "inputs": [{ "block": 3, "count": 3 }],
+      "result": { "item": "stone_pickaxe", "count": 1, "attackBonus": 3 },
+      "station": "crafting_table",
+      "conditions": { "requiresItem": "crafting_table" }
+    },
+    {
+      "id": "iron_sword",
+      "nameAr": "سيف حديدي",
+      "inputs": [
+        { "block": 13, "count": 2 }
+      ],
+      "result": { "item": "iron_sword", "count": 1, "attackBonus": 6 },
+      "station": "crafting_table",
+      "conditions": { "requiresItem": "crafting_table" }
+    },
+    {
+      "id": "torch_bundle",
+      "nameAr": "حزمة مشاعل",
+      "inputs": [{ "block": 11, "count": 1 }, { "block": 12, "count": 1 }],
+      "result": { "block": 11, "count": 4 },
+      "station": "hand"
+    }
+  ]
+}
