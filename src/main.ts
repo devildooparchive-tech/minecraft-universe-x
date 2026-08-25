@@ -23,6 +23,8 @@ import { BlockInteraction } from './player/block-interaction';
 import { Survival } from './player/survival';
 import { ParticleSystem } from './renderer/particles';
 import { renderHud } from './ui/hud';
+import { computeSky, advanceTime } from './world/daynight';
+import * as THREE from 'three';
 import vanillaBlocks from '../data/blocks/vanilla.json';
 import type { BlockFile } from './world/blocks';
 
@@ -58,6 +60,7 @@ function main(): void {
   const saves = new SaveManager(new IndexedDBStore());
   const clock = new GameClock();
   const inventory = new Inventory();
+  let timeOfDay = 0.35; // start mid-morning
   const interaction = new BlockInteraction({ world, registry, inventory, events });
   const survival = new Survival({
     isWater: (x, y, z) => world.getBlock(x, y, z) === 5,
@@ -206,6 +209,8 @@ function main(): void {
 
   function update(dtMs: number): void {
     const dt = dtMs / 1000;
+    // day/night clock: 10-minute full day
+    timeOfDay = advanceTime(timeOfDay, dt, 600);
     const md = input.consumeMouseDelta();
     player.look(md.dx, md.dy);
     player.move(input.moveIntent());
@@ -262,6 +267,20 @@ function main(): void {
     renderer.render();
     const pos = player.body.position;
 
+    // --- day/night cycle (Overhaul Max) — time advances in update(), sky here ---
+    const sky = computeSky(timeOfDay);
+    (renderer.scene.background as THREE.Color).setHex(sky.skyColor);
+    const fog = renderer.scene.fog as THREE.Fog;
+    fog.near = sky.fogNear;
+    fog.far = sky.fogFar;
+    renderer.sunLight.intensity = 0.25 + sky.sunIntensity * 1.1;
+    renderer.sunLight.position.set(
+      pos.x + sky.sunDirection.x * 100,
+      80 + sky.sunDirection.y * 100,
+      pos.z + sky.sunDirection.z * 100,
+    );
+    renderer.ambientLight.intensity = sky.ambient;
+
     // survival + hotbar HUD
     renderHud(
       {
@@ -283,24 +302,39 @@ function main(): void {
 
     hud.textContent =
       `FPS: ${clock.fps.toFixed(0)}  XYZ: ${pos.x.toFixed(1)} ${pos.y.toFixed(1)} ${pos.z.toFixed(1)}\n` +
-      `Chunks: ${world.loadedChunkCount}  Meshes: ${renderer.meshCount}  Biome: ${world.biomeAt(Math.floor(pos.x), Math.floor(pos.z)).nameAr}` +
+      `Chunks: ${world.loadedChunkCount}  Meshes: ${renderer.meshCount}  Biome: ${world.biomeAt(Math.floor(pos.x), Math.floor(pos.z)).nameAr}  ⏰ ${sky.label}` +
       (interaction.miningTarget ? `  ⛏ ${(interaction.miningProgress * 100).toFixed(0)}%` : '');
   }
 
   const loop = new GameLoop({ update, render });
 
   // --- boot -----------------------------------------------------------------
-  void (async () => {
-    await tryLoadGame();
-    refreshChunks(true);
-    let last = performance.now();
-    function frame(now: number): void {
-      const dt = clock.tick(now - last);
-      last = now;
-      loop.tickFrame(dt);
-      requestAnimationFrame(frame);
-    }
+  // Start the game IMMEDIATELY; load save in background and hot-apply it.
+  // (A blocked/hung IndexedDB in sandboxed iframes must never freeze boot.)
+  refreshChunks(true);
+  let last = performance.now();
+  function frame(now: number): void {
+    const dt = clock.tick(now - last);
+    last = now;
+    loop.tickFrame(dt);
     requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  void (async () => {
+    try {
+      const loaded = await Promise.race([
+        tryLoadGame(),
+        new Promise<false>((resolve) => setTimeout(() => resolve(false), 2500)),
+      ]);
+      if (loaded) {
+        saveStatus.style.opacity = '1';
+        setTimeout(() => (saveStatus.style.opacity = '0'), 1500);
+        gameEvents.emit('game:loaded', { slot: SAVE_KEY });
+      }
+    } catch (err) {
+      console.warn('[boot] save load failed (continuing fresh):', err);
+    }
   })();
 }
 

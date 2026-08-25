@@ -21,6 +21,8 @@ export class SceneRenderer {
   readonly scene: THREE.Scene;
   readonly camera: THREE.PerspectiveCamera;
   readonly renderer: THREE.WebGLRenderer;
+  readonly sunLight: THREE.DirectionalLight;
+  readonly ambientLight: THREE.AmbientLight;
   private readonly world: World;
   private readonly registry: BlockRegistry;
   private readonly chunkMeshes = new Map<string, THREE.Mesh>();
@@ -44,11 +46,11 @@ export class SceneRenderer {
     this.renderer = new THREE.WebGLRenderer({ canvas: options.canvas, antialias: true });
     this.renderer.setSize(options.canvas.clientWidth, options.canvas.clientHeight, false);
 
-    // Lights
-    const ambient = new THREE.AmbientLight(0xffffff, 0.7);
-    const sun = new THREE.DirectionalLight(0xffffff, 1.2);
-    sun.position.set(0.5, 1, 0.3).normalize();
-    this.scene.add(ambient, sun);
+    // Lights — exposed for the day/night cycle driver
+    this.ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+    this.sunLight = new THREE.DirectionalLight(0xfff4e0, 1.2);
+    this.sunLight.position.set(50, 120, 30);
+    this.scene.add(this.ambientLight, this.sunLight);
 
     this.material = new THREE.MeshLambertMaterial({ vertexColors: true });
   }

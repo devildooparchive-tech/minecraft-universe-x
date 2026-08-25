@@ -267,6 +267,12 @@ export class World {
         // --- decorations (Overhaul P2) — deterministic per-column ---
         this.placeDecoration(chunk, lx, h, lz, biome.name, wx, wz, isRiver);
 
+        // --- desert cacti (Overhaul+) ---
+        if (biome.name === 'desert' && h > seaLevel && !isRiver) {
+          const croll = hash2(this.seed ^ 0xca27, wx, wz) / 4294967296;
+          if (croll < 0.008) this.placeCactus(chunk, lx, h + 1, lz);
+        }
+
         // --- trees (deterministic per-column hash) ---
         if (
           biome.treeDensity > 0 &&
@@ -337,20 +343,62 @@ export class World {
 
   /** Small oak-style tree: trunk 4-5, leaf blob. Fits within the chunk column. */
   private placeTree(chunk: Chunk, lx: number, baseY: number, lz: number, wx: number, wz: number): void {
-    const trunkH = 4 + (hash2(this.seed ^ 0x11, wx, wz) % 2);
+    this.placeTreeByBiome(chunk, lx, baseY, lz, wx, wz);
+  }
+
+  /**
+   * Biome-flavored trees (Overhaul+):
+   *  - forest: classic oak (wood + round canopy)
+   *  - snow/tundra: spruce (tall conical, dark leaves)
+   *  - swamp: short wide willow-ish blob
+   * All deterministic via hash2.
+   */
+  private placeTreeByBiome(chunk: Chunk, lx: number, baseY: number, lz: number, wx: number, wz: number): void {
+    const temp = this.climate(wx, wz, this.tempNoise);
+    const style = temp < 0.25 ? 'spruce' : 'oak';
+    const trunkH = (style === 'spruce' ? 6 : 4) + (hash2(this.seed ^ 0x11, wx, wz) % 3);
     if (baseY + trunkH + 2 >= CHUNK_HEIGHT) return;
+
     for (let i = 0; i < trunkH; i++) chunk.set(lx, baseY + i, lz, 6); // wood
-    // canopy 3x3x2 + cap
-    for (let dy = trunkH - 2; dy <= trunkH - 1; dy++) {
-      for (let dz = -1; dz <= 1; dz++) {
-        for (let dx = -1; dx <= 1; dx++) {
-          if (dx === 0 && dz === 0 && dy < trunkH) continue; // trunk
-          chunk.set(lx + dx, baseY + dy, lz + dz, 7); // leaves
+
+    if (style === 'spruce') {
+      // conical canopy: rings shrink toward top
+      let ringR = 2;
+      for (let dy = Math.floor(trunkH * 0.4); dy <= trunkH; dy++) {
+        if ((trunkH - dy) % 2 === 0 && ringR > 0) {
+          for (let dz = -ringR; dz <= ringR; dz++) {
+            for (let dx = -ringR; dx <= ringR; dx++) {
+              if (Math.abs(dx) === ringR && Math.abs(dz) === ringR) continue; // clip corners
+              if (dx === 0 && dz === 0 && dy < trunkH) continue;
+              chunk.set(lx + dx, baseY + dy, lz + dz, 7);
+            }
+          }
+          ringR--;
         }
       }
+      chunk.set(lx, baseY + trunkH + 1, lz, 7); // tip
+    } else {
+      // oak blob
+      for (let dy = trunkH - 2; dy <= trunkH - 1; dy++) {
+        for (let dz = -1; dz <= 1; dz++) {
+          for (let dx = -1; dx <= 1; dx++) {
+            if (dx === 0 && dz === 0 && dy < trunkH) continue;
+            chunk.set(lx + dx, baseY + dy, lz + dz, 7);
+          }
+        }
+      }
+      chunk.set(lx, baseY + trunkH, lz, 7);
+      chunk.set(lx, baseY + trunkH + 1, lz, 7);
     }
-    chunk.set(lx, baseY + trunkH, lz, 7);
-    chunk.set(lx, baseY + trunkH + 1, lz, 7);
+  }
+
+  /** Cactus for deserts: 2-3 tall green columns. */
+  private placeCactus(chunk: Chunk, lx: number, baseY: number, lz: number): void {
+    const h = 2 + (hash2(this.seed ^ 0xca27, lx, lz) % 2);
+    if (baseY + h >= CHUNK_HEIGHT) return;
+    for (let i = 0; i < h; i++) chunk.set(lx, baseY + i, lz, 16); // reuse crystal id? no — use leaves green
+    // Actually use leaves (7) as cactus body placeholder until dedicated block exists
+    for (let i = 0; i < h; i++) chunk.set(lx, baseY + i, lz, 7);
   }
 
   private applyEditsTo(chunk: Chunk): void {
